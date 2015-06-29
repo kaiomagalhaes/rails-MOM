@@ -1,2 +1,2 @@
-class MessageSender < ActiveRecord::Base
+class MessageSender < Message
 end

@@ -1,2 +1,2 @@
-class MessageHandler < ActiveRecord::Base
+class MessageHandler < Message
 end
