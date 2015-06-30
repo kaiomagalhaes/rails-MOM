@@ -19,7 +19,16 @@ module RailsMom
     # The default locale is :en and all translations from config/locales/*.rb,yml are auto loaded.
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
-
+    config.after_initialize do
+      c1 = Client.new({url: "http://45.55.225.59:3001/new_user"})
+      c1.save!
+      puts "Created User: #{c1.id}"
+      c2 = Client.new({url: "http://45.55.225.59:3001/new_user"})
+      c2.save!
+      puts "Created User: #{c2.id}"
+      puts "Starting Qeue"
+      MessageQeue.new
+    end
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end

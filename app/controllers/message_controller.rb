@@ -14,6 +14,7 @@ class MessageController < ApplicationController
     message = Message.new
     subject = Subject.new
     message.for_send = params.require(:for_send)
+    message.sent = false
     subject.text = params.require(:message)
     client_id = params.require(:client_id)
     message.client = Client.find(client_id)
