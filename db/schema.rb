@@ -22,19 +22,9 @@ ActiveRecord::Schema.define(version: 20150627231822) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "message_handlers", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "message_senders", force: :cascade do |t|
-    t.boolean  "sent"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "messages", force: :cascade do |t|
-    t.boolean  "forSend"
+    t.boolean  "for_send"
+    t.boolean  "sent"
     t.integer  "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

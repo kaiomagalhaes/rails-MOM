@@ -1,13 +1,19 @@
 class MessageController < ApplicationController
 
-  def get_message
-    render json: {pepapig: "Lol"}
+  def get_messages
+    client_id = params.require(:client_id)
+    messages = Store.get_unsent_messages_for_client(client_id)
+    messages.each  do |message|
+      message.sent = true
+      message.save!
+    end
+    render json: {messages:messages}
   end
 
   def send_message
-    message = MessageSender.new
+    message = Message.new
     subject = Subject.new
-    message.forSend = params.require(:forSend)
+    message.for_send = params.require(:for_send)
     subject.text = params.require(:message)
     client_id = params.require(:client_id)
     message.client = Client.find(client_id)
