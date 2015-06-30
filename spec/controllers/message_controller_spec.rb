@@ -12,7 +12,7 @@ RSpec.describe MessageController, :type => :controller do
       get :send_message, valid_params_keep_message
       json_response = JSON.parse(response.body)
       expect(json_response["status"]).to be_eql(200)
-      expect(Message.all.count).to be_eql(1)
+      expect(MessageSender.all.count).to be_eql(1)
       expect(Subject.all.count).to be_eql(1)
     end
   end

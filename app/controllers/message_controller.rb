@@ -5,7 +5,7 @@ class MessageController < ApplicationController
   end
 
   def send_message
-    message = Message.new
+    message = MessageSender.new
     subject = Subject.new
     message.forSend = params.require(:forSend)
     subject.text = params.require(:message)
