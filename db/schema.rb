@@ -35,9 +35,12 @@ ActiveRecord::Schema.define(version: 20150627231822) do
 
   create_table "messages", force: :cascade do |t|
     t.boolean  "forSend"
+    t.integer  "client_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
+
+  add_index "messages", ["client_id"], name: "index_messages_on_client_id", using: :btree
 
   create_table "stores", force: :cascade do |t|
     t.datetime "created_at", null: false

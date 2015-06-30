@@ -5,8 +5,15 @@ class MessageController < ApplicationController
   end
 
   def send_message
-    puts params
-    render json: {status: 200}
+    message = Message.new
+    subject = Subject.new
+    message.forSend = params.require(:forSend)
+    subject.text = params.require(:message)
+    client_id = params.require(:client_id)
+    message.client = Client.find(client_id)
+    message.subject = subject
+    message.save!
+    render json: {status: 200,message: message}
   end
 
 end
