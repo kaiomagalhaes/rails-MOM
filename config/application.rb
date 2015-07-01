@@ -20,12 +20,14 @@ module RailsMom
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     # config.i18n.default_locale = :de
     config.after_initialize do
-      c1 = Client.new({url: "http://45.55.225.59:3001/new_user"})
-      c1.save!
-      puts "Created User: #{c1.id}"
-      c2 = Client.new({url: "http://45.55.225.59:3001/new_user"})
-      c2.save!
-      puts "Created User: #{c2.id}"
+      if Client.all.count ==0 then
+        c1 = Client.new({url: "http://45.55.225.59:3001/new_user"})
+        c1.save!
+        puts "Created User: #{c1.id}"
+        c2 = Client.new({url: "http://45.55.225.59:3001/new_user"})
+        c2.save!
+        puts "Created User: #{c2.id}"
+      end
       puts "Starting Qeue"
       MessageQeue.new
     end
