@@ -11,18 +11,22 @@ class MessageController < ApplicationController
   end
 
   def send_message
-    message = Message.new
-    subject = Subject.new
-    message.for_send = params.require(:for_send)
-    message.for_send ||= true
-    message.sent = false
-    subject.text = params.require(:message)
-    client_id = params.require(:client_id)
-    message.client = Client.find(client_id)
-    message.subject = subject
-    subject.save!
-    message.save!
-    render json: {status: 200,message: message}
+    begin
+      message = Message.new
+      subject = Subject.new
+      message.for_send = params.require(:for_send)
+      message.sent = false
+      message.message_invalid = false
+      subject.text = params.require(:message)
+      client_id = params.require(:client_id)
+      message.client = Client.find(client_id)
+      message.subject = subject
+      subject.save!
+      message.save!
+      render json: {status: 200,message: message}
+    rescue  StandardError => bang
+      puts bang
+    end
   end
 
 end
